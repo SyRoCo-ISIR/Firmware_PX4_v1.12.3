@@ -18,6 +18,7 @@ px4_add_board(
 	DRIVERS
 		adc/ads1115
 		adc/board_adc
+		anemometer/sfm3000 # SFM 3000
 		barometer # all available barometer drivers
 		batt_smbus
 		camera_capture
@@ -33,6 +34,7 @@ px4_add_board(
 		imu/invensense/icm20602
 		imu/invensense/icm20689
 		imu/invensense/icm20948 # required for ak09916 mag
+		imu/jy901b
 		irlock
 		lights # all available light drivers
 		lights/rgbled_pwm
@@ -55,6 +57,7 @@ px4_add_board(
 		telemetry # all available telemetry drivers
 		tone_alarm
 		uavcan
+		uwb
 	MODULES
 		airspeed_selector
 		attitude_estimator_q
@@ -62,6 +65,7 @@ px4_add_board(
 		camera_feedback
 		commander
 		dataman
+		data_record
 		ekf2
 		esc_battery
 		events
@@ -122,6 +126,8 @@ px4_add_board(
 		ver
 		work_queue
 	EXAMPLES
+		anemometer_test
+		data_record_test
 		fake_gps
 		#fake_imu
 		#fake_magnetometer

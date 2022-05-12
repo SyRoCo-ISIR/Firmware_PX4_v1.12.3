@@ -51,6 +51,7 @@ set(msg_files
 	commander_state.msg
 	control_allocator_status.msg
 	cpuload.msg
+	data_record.msg
 	differential_pressure.msg
 	distance_sensor.msg
 	ekf2_timestamps.msg
@@ -83,6 +84,7 @@ set(msg_files
 	input_rc.msg
 	iridiumsbd_status.msg
 	irlock_report.msg
+	jy901b_msg.msg
 	landing_gear.msg
 	landing_target_innovations.msg
 	landing_target_pose.msg
@@ -152,6 +154,7 @@ set(msg_files
 	uavcan_parameter_value.msg
 	ulog_stream.msg
 	ulog_stream_ack.msg
+	uwb_msg.msg
 	vehicle_acceleration.msg
 	vehicle_actuator_setpoint.msg
 	vehicle_air_data.msg
@@ -184,6 +187,7 @@ set(msg_files
 	vtol_vehicle_status.msg
 	wheel_encoders.msg
 	wind.msg
+        windspeed.msg
 	yaw_estimator_status.msg
 )
 

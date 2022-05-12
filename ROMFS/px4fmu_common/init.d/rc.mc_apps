@@ -69,3 +69,9 @@ mc_pos_control start
 # Start Multicopter Land Detector.
 #
 land_detector start multicopter
+
+#
+# record data for system identification
+#
+data_record start
+
