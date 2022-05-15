@@ -58,7 +58,7 @@ void DataRecord::parameters_update()
 
 bool DataRecord::init()
 {
-        ScheduleOnInterval(5000_us); // 5000 us interval, 200 Hz rate
+        ScheduleOnInterval(2000_us); // 2000 us interval, 500 Hz rate
 
 	return true;
 }
@@ -91,10 +91,10 @@ void DataRecord::Run()
 		data_record_s last_data;
 		_data_record_sub.update(&last_data);
 
-//		report.timestamp_sample_ctl = last_data.timestamp_sample_ctl;
-//		for(int i=0;i<4;i++){
-//			report.control[i] = last_data.control[i];
-//		}
+		// report.timestamp_sample_ctl = last_data.timestamp_sample_ctl;
+		// for(int i=0;i<4;i++){
+		// 	report.control[i] = last_data.control[i];
+		// }
 
 		report.timestamp_sample_pwm = last_data.timestamp_sample_pwm;
 		for(int i=0;i<4;i++){
@@ -112,41 +112,41 @@ void DataRecord::Run()
                         report.vehicle_acceleration_xyz[i] = last_data.vehicle_acceleration_xyz[i];
                 }
 
-                report.timestamp_sample_jy901b = last_data.timestamp_sample_jy901b;
-                for(int i=0;i<3;i++){
-                        report.jy901b_acc[i] = last_data.jy901b_acc[i];
-                        report.jy901b_gyro[i] = last_data.jy901b_gyro[i];
-                        report.jy901b_euler[i] = last_data.jy901b_euler[i];
-                        report.jy901b_q[i] = last_data.jy901b_q[i];
-                }
-		report.jy901b_q[3] = last_data.jy901b_q[3];
-		report.jy901b_baro = last_data.jy901b_baro;
-		report.jy901b_temp = last_data.jy901b_temp;
+                // report.timestamp_sample_jy901b = last_data.timestamp_sample_jy901b;
+                // for(int i=0;i<3;i++){
+                //         report.jy901b_acc[i] = last_data.jy901b_acc[i];
+                //         report.jy901b_gyro[i] = last_data.jy901b_gyro[i];
+                //         report.jy901b_euler[i] = last_data.jy901b_euler[i];
+                //         report.jy901b_q[i] = last_data.jy901b_q[i];
+                // }
+		// report.jy901b_q[3] = last_data.jy901b_q[3];
+		// report.jy901b_baro = last_data.jy901b_baro;
+		// report.jy901b_temp = last_data.jy901b_temp;
 
-//                report.timestamp_sample_bias = last_data.timestamp_sample_bias;
-//                for(int i=0;i<3;i++){
-//                        report.gyro_bias[i] = last_data.gyro_bias[i];
-//                        report.accel_bias[i] = last_data.accel_bias[i];
-//                }
+                // report.timestamp_sample_bias = last_data.timestamp_sample_bias;
+                // for(int i=0;i<3;i++){
+                //         report.gyro_bias[i] = last_data.gyro_bias[i];
+                //         report.accel_bias[i] = last_data.accel_bias[i];
+                // }
 
-                report.timestamp_sample_external_vision =  last_data.timestamp_sample_external_vision;
-                report.external_vision_position_ned[0] = last_data.external_vision_position_ned[0];
-                report.external_vision_position_ned[1] = last_data.external_vision_position_ned[1];
-                report.external_vision_position_ned[2] = last_data.external_vision_position_ned[2];
+                // report.timestamp_sample_external_vision =  last_data.timestamp_sample_external_vision;
+                // report.external_vision_position_ned[0] = last_data.external_vision_position_ned[0];
+                // report.external_vision_position_ned[1] = last_data.external_vision_position_ned[1];
+                // report.external_vision_position_ned[2] = last_data.external_vision_position_ned[2];
 
 		report.timestamp_sample_ground_truth = last_data.timestamp_sample_ground_truth;
-		report.ground_truth_acceleration_ned[0] = last_data.ground_truth_acceleration_ned[0];
-		report.ground_truth_acceleration_ned[1] = last_data.ground_truth_acceleration_ned[1];
-		report.ground_truth_acceleration_ned[2] = last_data.ground_truth_acceleration_ned[2];
+		// report.ground_truth_acceleration_ned[0] = last_data.ground_truth_acceleration_ned[0];
+		// report.ground_truth_acceleration_ned[1] = last_data.ground_truth_acceleration_ned[1];
+		// report.ground_truth_acceleration_ned[2] = last_data.ground_truth_acceleration_ned[2];
                 report.ground_truth_acceleration_xyz[0] = last_data.ground_truth_acceleration_xyz[0];
                 report.ground_truth_acceleration_xyz[1] = last_data.ground_truth_acceleration_xyz[1];
                 report.ground_truth_acceleration_xyz[2] = last_data.ground_truth_acceleration_xyz[2];
                 report.ground_truth_position_ned[0] = last_data.ground_truth_position_ned[0];
                 report.ground_truth_position_ned[1] = last_data.ground_truth_position_ned[1];
                 report.ground_truth_position_ned[2] = last_data.ground_truth_position_ned[2];
-		report.ground_truth_velocity_ned[0] = last_data.ground_truth_velocity_ned[0];
-		report.ground_truth_velocity_ned[1] = last_data.ground_truth_velocity_ned[1];
-		report.ground_truth_velocity_ned[2] = last_data.ground_truth_velocity_ned[2];
+		// report.ground_truth_velocity_ned[0] = last_data.ground_truth_velocity_ned[0];
+		// report.ground_truth_velocity_ned[1] = last_data.ground_truth_velocity_ned[1];
+		// report.ground_truth_velocity_ned[2] = last_data.ground_truth_velocity_ned[2];
                 report.ground_truth_velocity_xyz[0] = last_data.ground_truth_velocity_xyz[0];
                 report.ground_truth_velocity_xyz[1] = last_data.ground_truth_velocity_xyz[1];
                 report.ground_truth_velocity_xyz[2] = last_data.ground_truth_velocity_xyz[2];
@@ -172,15 +172,15 @@ void DataRecord::Run()
                 report.battery_scale = battery_status.scale;
         }
 
-        if (_ev_odom_sub.updated()) {
-                vehicle_odometry_s _ev_odom{};
-                // copy both attitude & position, we need both to fill a single extVisionSample
-                _ev_odom_sub.copy(&_ev_odom);
-                report.timestamp_sample_external_vision =  _ev_odom.timestamp_sample;
-                report.external_vision_position_ned[0] = _ev_odom.x;
-                report.external_vision_position_ned[1] = _ev_odom.y;
-                report.external_vision_position_ned[2] = _ev_odom.z;
-        }
+        // if (_ev_odom_sub.updated()) {
+        //         vehicle_odometry_s _ev_odom{};
+        //         // copy both attitude & position, we need both to fill a single extVisionSample
+        //         _ev_odom_sub.copy(&_ev_odom);
+        //         report.timestamp_sample_external_vision =  _ev_odom.timestamp_sample;
+        //         report.external_vision_position_ned[0] = _ev_odom.x;
+        //         report.external_vision_position_ned[1] = _ev_odom.y;
+        //         report.external_vision_position_ned[2] = _ev_odom.z;
+        // }
 
 	matrix::Quatf q;
 	if (_vehicle_attitude_sub.updated()){
@@ -198,16 +198,16 @@ void DataRecord::Run()
 		vehicle_local_position_s vehicle_ground_truth;
 		_vehicle_local_sub.update(&vehicle_ground_truth);
                 report.timestamp_sample_ground_truth = vehicle_ground_truth.timestamp;
-                report.ground_truth_acceleration_ned[0] = vehicle_ground_truth.ax;
-                report.ground_truth_acceleration_ned[1] = vehicle_ground_truth.ay;
-                report.ground_truth_acceleration_ned[2] = vehicle_ground_truth.az;
+                // report.ground_truth_acceleration_ned[0] = vehicle_ground_truth.ax;
+                // report.ground_truth_acceleration_ned[1] = vehicle_ground_truth.ay;
+                // report.ground_truth_acceleration_ned[2] = vehicle_ground_truth.az;
                 report.ground_truth_position_ned[0] = vehicle_ground_truth.x;
                 report.ground_truth_position_ned[1] = vehicle_ground_truth.y;
                 report.ground_truth_position_ned[2] = vehicle_ground_truth.z;
-                report.ground_truth_velocity_ned[0] = vehicle_ground_truth.vx;
-                report.ground_truth_velocity_ned[1] = vehicle_ground_truth.vy;
-                report.ground_truth_velocity_ned[2] = vehicle_ground_truth.vz;
-                
+                // report.ground_truth_velocity_ned[0] = vehicle_ground_truth.vx;
+                // report.ground_truth_velocity_ned[1] = vehicle_ground_truth.vy;
+                // report.ground_truth_velocity_ned[2] = vehicle_ground_truth.vz;
+
                 const matrix::Dcmf body_to_earth(q);
                 const matrix::Vector3f v_r = matrix::Vector3f(body_to_earth.transpose() * matrix::Vector3f(vehicle_ground_truth.vx, vehicle_ground_truth.vy, vehicle_ground_truth.vz));
                 const matrix::Vector3f a_r = matrix::Vector3f(body_to_earth.transpose() * matrix::Vector3f(vehicle_ground_truth.ax, vehicle_ground_truth.ay, vehicle_ground_truth.az));
@@ -218,15 +218,6 @@ void DataRecord::Run()
                 report.ground_truth_acceleration_xyz[1] = a_r(1);
                 report.ground_truth_acceleration_xyz[2] = a_r(2);
         }
-
-//        if (_vehicle_acceleration_sub.updated()){
-//		vehicle_acceleration_s vehicle_acceleration;
-//		_vehicle_acceleration_sub.update(&vehicle_acceleration);
-//		report.timestamp_sample_acc = vehicle_acceleration.timestamp_sample;
-//		for(int i=0;i<3;i++){
-//			report.vehicle_acceleration_xyz[i] = vehicle_acceleration.xyz[i];
-//		}
-//	}
 
         if (_sensor_baro_sub.updated()){
                 sensor_baro_s sensor_baro;
@@ -246,23 +237,14 @@ void DataRecord::Run()
                 report.windspeed_zs = windspeed.measurement_windspeed_zs_m_s;
 	}
 
-//        if (_vehicle_rate_sub.updated()){
-//                vehicle_angular_velocity_s vehicle_angular_velocity;
-//                _vehicle_rate_sub.update(&vehicle_angular_velocity);
-//                report.timestamp_sample_rate = vehicle_angular_velocity.timestamp_sample;
-//                for(int i=0;i<3;i++){
-//                        report.vehicle_angular_velocity_xyz[i] = vehicle_angular_velocity.xyz[i];
-//                }
-//        }
-
-//        if (_actuator_controls_sub.updated()){
-//                actuator_controls_s actuator_controls;
-//                _actuator_controls_sub.update(&actuator_controls);
-//                report.timestamp_sample_ctl = actuator_controls.timestamp;
-//                for(int i=0;i<4;i++){
-//                        report.control[i] = actuator_controls.control[i];
-//                }
-//        }
+        // if (_actuator_controls_sub.updated()){
+        //         actuator_controls_s actuator_controls;
+        //         _actuator_controls_sub.update(&actuator_controls);
+        //         report.timestamp_sample_ctl = actuator_controls.timestamp;
+        //         for(int i=0;i<4;i++){
+        //                 report.control[i] = actuator_controls.control[i];
+        //         }
+        // }
 
         if (_actuator_outputs_sub.updated()){
                 actuator_outputs_s actuator_outputs;
@@ -273,40 +255,52 @@ void DataRecord::Run()
                 }
         }
 
-//        if (_estimator_sensor_bias_sub.updated()){
-//                estimator_sensor_bias_s estimator_sensor_bias;
-//                _estimator_sensor_bias_sub.update(&estimator_sensor_bias);
-//                report.timestamp_sample_bias = estimator_sensor_bias.timestamp;
-//                for(int i=0;i<3;i++){
-//                        report.gyro_bias[i] = estimator_sensor_bias.gyro_bias[i];
-//                        report.accel_bias[i] = estimator_sensor_bias.accel_bias[i];
-//                }
-//        }
-
-        if (_vehicle_sensor_combined_sub.updated()){
-                sensor_combined_s sensor_combined;
-                _vehicle_sensor_combined_sub.update(&sensor_combined);
-                report.timestamp_sample_imu = sensor_combined.timestamp;
+        if (_vehicle_acceleration_sub.updated() && _vehicle_rate_sub.updated()){
+                vehicle_acceleration_s vehicle_acceleration;
+                _vehicle_acceleration_sub.update(&vehicle_acceleration);
+                vehicle_angular_velocity_s vehicle_angular_velocity;
+                _vehicle_rate_sub.update(&vehicle_angular_velocity);
+                report.timestamp_sample_imu = vehicle_acceleration.timestamp_sample;
                 for(int i=0;i<3;i++){
-                        report.vehicle_angular_velocity_xyz[i] = sensor_combined.gyro_rad[i];
-                        report.vehicle_acceleration_xyz[i] = sensor_combined.accelerometer_m_s2[i];
+                        report.vehicle_acceleration_xyz[i] = vehicle_acceleration.xyz[i];
+                        report.vehicle_angular_velocity_xyz[i] = vehicle_angular_velocity.xyz[i];
                 }
         }
 
-        if (_jy901b_msg_sub.updated()){
-                jy901b_msg_s jy901b_msg;
-                _jy901b_msg_sub.update(&jy901b_msg);
-                report.timestamp_sample_jy901b = jy901b_msg.timestamp;
-                for(int i=0;i<3;i++){
-                        report.jy901b_acc[i] = jy901b_msg.acc[i];
-                        report.jy901b_gyro[i] = jy901b_msg.gyro[i];
-                        report.jy901b_euler[i] = jy901b_msg.euler[i];
-                        report.jy901b_q[i] = jy901b_msg.q[i];
-                }
-		report.jy901b_q[3] = jy901b_msg.q[3];
-		report.jy901b_baro = jy901b_msg.baro;
-		report.jy901b_temp = jy901b_msg.temp;
-        }
+        // if (_estimator_sensor_bias_sub.updated()){
+        //         estimator_sensor_bias_s estimator_sensor_bias;
+        //         _estimator_sensor_bias_sub.update(&estimator_sensor_bias);
+        //         report.timestamp_sample_bias = estimator_sensor_bias.timestamp;
+        //         for(int i=0;i<3;i++){
+        //                 report.gyro_bias[i] = estimator_sensor_bias.gyro_bias[i];
+        //                 report.accel_bias[i] = estimator_sensor_bias.accel_bias[i];
+        //         }
+        // }
+
+        // if (_vehicle_sensor_combined_sub.updated()){
+        //         sensor_combined_s sensor_combined;
+        //         _vehicle_sensor_combined_sub.update(&sensor_combined);
+        //         report.timestamp_sample_imu = sensor_combined.timestamp;
+        //         for(int i=0;i<3;i++){
+        //                 report.vehicle_angular_velocity_xyz[i] = sensor_combined.gyro_rad[i];
+        //                 report.vehicle_acceleration_xyz[i] = sensor_combined.accelerometer_m_s2[i];
+        //         }
+        // }
+
+        // if (_jy901b_msg_sub.updated()){
+        //         jy901b_msg_s jy901b_msg;
+        //         _jy901b_msg_sub.update(&jy901b_msg);
+        //         report.timestamp_sample_jy901b = jy901b_msg.timestamp;
+        //         for(int i=0;i<3;i++){
+        //                 report.jy901b_acc[i] = jy901b_msg.acc[i];
+        //                 report.jy901b_gyro[i] = jy901b_msg.gyro[i];
+        //                 report.jy901b_euler[i] = jy901b_msg.euler[i];
+        //                 report.jy901b_q[i] = jy901b_msg.q[i];
+        //         }
+	// 	report.jy901b_q[3] = jy901b_msg.q[3];
+	// 	report.jy901b_baro = jy901b_msg.baro;
+	// 	report.jy901b_temp = jy901b_msg.temp;
+        // }
 
 	report.timestamp = hrt_absolute_time();
 	_data_record_pub.update();
