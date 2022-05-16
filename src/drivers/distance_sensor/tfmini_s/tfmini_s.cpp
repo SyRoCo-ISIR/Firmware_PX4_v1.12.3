@@ -200,7 +200,7 @@ int tfmini_s::init()
 			_px4_rangefinder.set_max_distance(TFMINI_S_MAX_DISTANCE_M);
 			_px4_rangefinder.set_min_distance(TFMINI_S_MIN_DISTANCE_M);
 		}
-		
+
 		break;
 	}
 	default:
@@ -235,7 +235,7 @@ void tfmini_s::RunImpl()
 			PX4_DEBUG("collect error");
 			return;
 		}
-	}	
+	}
 }
 
 int tfmini_s::measure(uint8_t id)
@@ -273,7 +273,7 @@ int tfmini_s::collect(uint8_t id)
 		perf_end(_sample_perf);
 		return ret_val;
 	}
-	
+
 	/*
 	 * Check if value makes sense according to the FSR and Resolution of
 	 * this sensor, discarding outliers, until
@@ -303,13 +303,14 @@ int tfmini_s::collect(uint8_t id)
 		 signal_quality = strength;
 
 	if (crc8(val, 8) == val[8]) {
+		_px4_rangefinder.set_device_id(uint32_t(10+id));
 		_px4_rangefinder.set_orientation(addr_table[id]);
 		_px4_rangefinder.update(timestamp_sample, distance_m, signal_quality);
 	}
 
 	perf_count(_sample_perf);
 	perf_end(_sample_perf);
-	
+
 	return ret_val;
 }
 
