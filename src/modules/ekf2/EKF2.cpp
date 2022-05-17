@@ -58,6 +58,7 @@ EKF2::EKF2(bool multi_mode, const px4::wq_config_t &config, bool replay_mode):
 	_wind_pub(multi_mode ? ORB_ID(estimator_wind) : ORB_ID(wind)),
 	_params(_ekf.getParamHandle()),
 	_param_ekf2_min_obs_dt(_params->sensor_interval_min_ms),
+	_param_ekf2_delay_forced(_params->forced_delay_ms),
 	_param_ekf2_mag_delay(_params->mag_delay_ms),
 	_param_ekf2_baro_delay(_params->baro_delay_ms),
 	_param_ekf2_gps_delay(_params->gps_delay_ms),
@@ -260,6 +261,7 @@ void EKF2::Run()
 		// update parameters from storage
 		updateParams();
 
+		_params->arsp_thr = _param_ekf2_arsp_thr.get();
 		_ekf.set_min_required_gps_health_time(_param_ekf2_req_gps_h.get() * 1_s);
 
 		// The airspeed scale factor correcton is only available via parameter as used by the airspeed module

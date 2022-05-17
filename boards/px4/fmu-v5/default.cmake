@@ -129,6 +129,7 @@ px4_add_board(
 		anemometer_test
 		data_record_test
 		fake_gps
+		vision_test
 		#fake_imu
 		#fake_magnetometer
 		#fixedwing_control # Tutorial code from https://px4.io/dev/example_fixedwing_control
