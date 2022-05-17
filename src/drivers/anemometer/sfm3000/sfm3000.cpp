@@ -62,7 +62,6 @@ int SFM3000::collect()
     // Increment the sensor index, (limited to the number of sensors connected).
     for (size_t index = 0; index < _sensor_count; index++) {
         
-        //param_get(param_find("SENS_EN_TCA9578A"), &enable_TCA9578A);
         if(enable_TCA9578A){
             set_device_address(TCA_ADDR);
             uint8_t cmd = 1 << _sensor_chanal[index]; // for port #_sensor_chanal[index] in tca9548a
@@ -151,8 +150,6 @@ int SFM3000::init()
             // starting from the base address 0x40 and incrementing
             int j=0;
             int i=0;
-            int32_t SFM_NUM = ANEMOMETER_MAX_SENSORS;
-            param_get(param_find("SFM_NUM"), &SFM_NUM);
             while (i < TCA9578A_MAX_CHANAL) {
                 // set TCA9578A chanal
                 set_device_address(TCA_ADDR);

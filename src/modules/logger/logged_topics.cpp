@@ -287,7 +287,7 @@ void LoggedTopics::add_system_identification_topics()
 	// add_topic("vehicle_local_position_setpoint", 100); // pub in mc_pos, and calculated from traj_set with PID
 	// add_topic("vehicle_attitude");
 	// add_topic("vehicle_local_position"); // pub in ekf
-	add_topic("data_record");
+	add_topic("data_record",5);
 	// add_topic("windspeed");
 	// add_topic("vehicle_visual_odometry", 20);
 }

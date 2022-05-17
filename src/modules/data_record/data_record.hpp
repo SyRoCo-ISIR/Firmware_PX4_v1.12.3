@@ -45,8 +45,8 @@
 // #include <uORB/topics/actuator_controls.h>
 #include <uORB/topics/actuator_outputs.h>
 #include <uORB/topics/vehicle_attitude.h>
-#include <uORB/topics/vehicle_angular_velocity.h>
-#include <uORB/topics/vehicle_acceleration.h>
+// #include <uORB/topics/vehicle_angular_velocity.h>
+// #include <uORB/topics/vehicle_acceleration.h>
 #include <uORB/topics/sensor_combined.h>
 // #include <uORB/topics/jy901b_msg.h>
 // #include <uORB/topics/vehicle_odometry.h>
@@ -99,9 +99,9 @@ private:
 //    uORB::Subscription	_parameter_update_sub{ORB_ID(parameter_update)};
 //	uORB::Subscription 	_actuator_controls_sub{ORB_ID(actuator_controls_0)};
 	uORB::Subscription 	_actuator_outputs_sub{ORB_ID(actuator_outputs),1};
-	uORB::Subscription 	_vehicle_acceleration_sub{ORB_ID(vehicle_acceleration)};
-	uORB::Subscription 	_vehicle_rate_sub{ORB_ID(vehicle_angular_velocity)};
-//     uORB::Subscription 	_vehicle_sensor_combined_sub{ORB_ID(sensor_combined)};
+	// uORB::Subscription 	_vehicle_acceleration_sub{ORB_ID(vehicle_acceleration)};
+	// uORB::Subscription 	_vehicle_rate_sub{ORB_ID(vehicle_angular_velocity)};
+    uORB::Subscription 	_vehicle_sensor_combined_sub{ORB_ID(sensor_combined)};
 //     uORB::Subscription 	_jy901b_msg_sub{ORB_ID(jy901b_msg)};
     uORB::Subscription 	_vehicle_attitude_sub{ORB_ID(vehicle_attitude)};
 //     uORB::Subscription _ev_odom_sub{ORB_ID(vehicle_visual_odometry)};

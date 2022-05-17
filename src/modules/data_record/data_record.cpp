@@ -58,7 +58,7 @@ void DataRecord::parameters_update()
 
 bool DataRecord::init()
 {
-        ScheduleOnInterval(2000_us); // 2000 us interval, 500 Hz rate
+        ScheduleOnInterval(5000_us); // 5000 us interval, 200 Hz rate
 
 	return true;
 }
@@ -255,17 +255,17 @@ void DataRecord::Run()
                 }
         }
 
-        if (_vehicle_acceleration_sub.updated() && _vehicle_rate_sub.updated()){
-                vehicle_acceleration_s vehicle_acceleration;
-                _vehicle_acceleration_sub.update(&vehicle_acceleration);
-                vehicle_angular_velocity_s vehicle_angular_velocity;
-                _vehicle_rate_sub.update(&vehicle_angular_velocity);
-                report.timestamp_sample_imu = vehicle_acceleration.timestamp_sample;
-                for(int i=0;i<3;i++){
-                        report.vehicle_acceleration_xyz[i] = vehicle_acceleration.xyz[i];
-                        report.vehicle_angular_velocity_xyz[i] = vehicle_angular_velocity.xyz[i];
-                }
-        }
+        // if (_vehicle_acceleration_sub.updated() && _vehicle_rate_sub.updated()){
+        //         vehicle_acceleration_s vehicle_acceleration;
+        //         _vehicle_acceleration_sub.update(&vehicle_acceleration);
+        //         vehicle_angular_velocity_s vehicle_angular_velocity;
+        //         _vehicle_rate_sub.update(&vehicle_angular_velocity);
+        //         report.timestamp_sample_imu = vehicle_acceleration.timestamp_sample;
+        //         for(int i=0;i<3;i++){
+        //                 report.vehicle_acceleration_xyz[i] = vehicle_acceleration.xyz[i];
+        //                 report.vehicle_angular_velocity_xyz[i] = vehicle_angular_velocity.xyz[i];
+        //         }
+        // }
 
         // if (_estimator_sensor_bias_sub.updated()){
         //         estimator_sensor_bias_s estimator_sensor_bias;
@@ -277,15 +277,15 @@ void DataRecord::Run()
         //         }
         // }
 
-        // if (_vehicle_sensor_combined_sub.updated()){
-        //         sensor_combined_s sensor_combined;
-        //         _vehicle_sensor_combined_sub.update(&sensor_combined);
-        //         report.timestamp_sample_imu = sensor_combined.timestamp;
-        //         for(int i=0;i<3;i++){
-        //                 report.vehicle_angular_velocity_xyz[i] = sensor_combined.gyro_rad[i];
-        //                 report.vehicle_acceleration_xyz[i] = sensor_combined.accelerometer_m_s2[i];
-        //         }
-        // }
+        if (_vehicle_sensor_combined_sub.updated()){
+                sensor_combined_s sensor_combined;
+                _vehicle_sensor_combined_sub.update(&sensor_combined);
+                report.timestamp_sample_imu = sensor_combined.timestamp;
+                for(int i=0;i<3;i++){
+                        report.vehicle_angular_velocity_xyz[i] = sensor_combined.gyro_rad[i];
+                        report.vehicle_acceleration_xyz[i] = sensor_combined.accelerometer_m_s2[i];
+                }
+        }
 
         // if (_jy901b_msg_sub.updated()){
         //         jy901b_msg_s jy901b_msg;

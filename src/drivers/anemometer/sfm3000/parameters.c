@@ -56,23 +56,6 @@ PARAM_DEFINE_INT32(SENS_EN_TCA9578A, 1);
 PARAM_DEFINE_INT32(SENS_EN_SFM3000, 1);
 
 /**
- * SFM Sensor
- *
- * This parameter defines the number of SFM sensor.
- *
- * @reboot_required true
- * @min 0
- * @max 7
- * @group Sensors
- *
- * @value 0 No sensor
- * @value 1 One sensor
- * @value 2 Two sensors
- * @value 3 Three sensors
- */
-PARAM_DEFINE_INT32(SFM_NUM, 4);
-
-/**
  * SFM Sensor 0 Rotation
  *
  * This parameter defines the queue number of SFM sensor with FORWARD-FACING, defualt: the First one
