@@ -58,7 +58,7 @@ void DataRecord::parameters_update()
 
 bool DataRecord::init()
 {
-        ScheduleOnInterval(5000_us); // 5000 us interval, 200 Hz rate
+        ScheduleOnInterval(2500_us); // 2500 us interval, 400 Hz rate
 
 	return true;
 }
@@ -106,11 +106,11 @@ void DataRecord::Run()
                         report.vehicle_attitude_ned[i] = last_data.vehicle_attitude_ned[i];
 		}
 
-                report.timestamp_sample_imu = last_data.timestamp_sample_imu;
-                for(int i=0;i<3;i++){
-                        report.vehicle_angular_velocity_xyz[i] = last_data.vehicle_angular_velocity_xyz[i];
-                        report.vehicle_acceleration_xyz[i] = last_data.vehicle_acceleration_xyz[i];
-                }
+//                report.timestamp_sample_imu = last_data.timestamp_sample_imu;
+//                for(int i=0;i<3;i++){
+//                        report.vehicle_angular_velocity_xyz[i] = last_data.vehicle_angular_velocity_xyz[i];
+//                        report.vehicle_acceleration_xyz[i] = last_data.vehicle_acceleration_xyz[i];
+//                }
 
                 // report.timestamp_sample_jy901b = last_data.timestamp_sample_jy901b;
                 // for(int i=0;i<3;i++){
@@ -129,10 +129,10 @@ void DataRecord::Run()
                 //         report.accel_bias[i] = last_data.accel_bias[i];
                 // }
 
-                // report.timestamp_sample_external_vision =  last_data.timestamp_sample_external_vision;
-                // report.external_vision_position_ned[0] = last_data.external_vision_position_ned[0];
-                // report.external_vision_position_ned[1] = last_data.external_vision_position_ned[1];
-                // report.external_vision_position_ned[2] = last_data.external_vision_position_ned[2];
+//                report.timestamp_sample_external_vision =  last_data.timestamp_sample_external_vision;
+//                report.external_vision_position_ned[0] = last_data.external_vision_position_ned[0];
+//                report.external_vision_position_ned[1] = last_data.external_vision_position_ned[1];
+//                report.external_vision_position_ned[2] = last_data.external_vision_position_ned[2];
 
 		report.timestamp_sample_ground_truth = last_data.timestamp_sample_ground_truth;
 		// report.ground_truth_acceleration_ned[0] = last_data.ground_truth_acceleration_ned[0];
@@ -151,9 +151,9 @@ void DataRecord::Run()
                 report.ground_truth_velocity_xyz[1] = last_data.ground_truth_velocity_xyz[1];
                 report.ground_truth_velocity_xyz[2] = last_data.ground_truth_velocity_xyz[2];
 
-                report.timestamp_sample_baro = last_data.timestamp_sample_baro;
-                report.pressure = last_data.pressure;
-                report.temperature = last_data.temperature;
+//                report.timestamp_sample_baro = last_data.timestamp_sample_baro;
+//                report.pressure = last_data.pressure;
+//                report.temperature = last_data.temperature;
 
 		report.timestamp_sample_wind = last_data.timestamp_sample_wind;
 		report.windspeed_x = last_data.windspeed_x;
@@ -172,15 +172,15 @@ void DataRecord::Run()
                 report.battery_scale = battery_status.scale;
         }
 
-        // if (_ev_odom_sub.updated()) {
-        //         vehicle_odometry_s _ev_odom{};
-        //         // copy both attitude & position, we need both to fill a single extVisionSample
-        //         _ev_odom_sub.copy(&_ev_odom);
-        //         report.timestamp_sample_external_vision =  _ev_odom.timestamp_sample;
-        //         report.external_vision_position_ned[0] = _ev_odom.x;
-        //         report.external_vision_position_ned[1] = _ev_odom.y;
-        //         report.external_vision_position_ned[2] = _ev_odom.z;
-        // }
+//         if (_ev_odom_sub.updated()) {
+//                 vehicle_odometry_s _ev_odom{};
+//                 // copy both attitude & position, we need both to fill a single extVisionSample
+//                 _ev_odom_sub.copy(&_ev_odom);
+//                 report.timestamp_sample_external_vision =  _ev_odom.timestamp_sample;
+//                 report.external_vision_position_ned[0] = _ev_odom.x;
+//                 report.external_vision_position_ned[1] = _ev_odom.y;
+//                 report.external_vision_position_ned[2] = _ev_odom.z;
+//         }
 
 	matrix::Quatf q;
 	if (_vehicle_attitude_sub.updated()){
@@ -219,13 +219,13 @@ void DataRecord::Run()
                 report.ground_truth_acceleration_xyz[2] = a_r(2);
         }
 
-        if (_sensor_baro_sub.updated()){
-                sensor_baro_s sensor_baro;
-                _sensor_baro_sub.update(&sensor_baro);
-                report.timestamp_sample_baro = sensor_baro.timestamp;
-                report.pressure = sensor_baro.pressure;
-                report.temperature = sensor_baro.temperature;
-	}
+//        if (_sensor_baro_sub.updated()){
+//                sensor_baro_s sensor_baro;
+//                _sensor_baro_sub.update(&sensor_baro);
+//                report.timestamp_sample_baro = sensor_baro.timestamp;
+//                report.pressure = sensor_baro.pressure;
+//                report.temperature = sensor_baro.temperature;
+//	}
 
 	if (_windspeed_sub.updated()){
 		windspeed_s windspeed;
@@ -277,15 +277,15 @@ void DataRecord::Run()
         //         }
         // }
 
-        if (_vehicle_sensor_combined_sub.updated()){
-                sensor_combined_s sensor_combined;
-                _vehicle_sensor_combined_sub.update(&sensor_combined);
-                report.timestamp_sample_imu = sensor_combined.timestamp;
-                for(int i=0;i<3;i++){
-                        report.vehicle_angular_velocity_xyz[i] = sensor_combined.gyro_rad[i];
-                        report.vehicle_acceleration_xyz[i] = sensor_combined.accelerometer_m_s2[i];
-                }
-        }
+//        if (_vehicle_sensor_combined_sub.updated()){
+//                sensor_combined_s sensor_combined;
+//                _vehicle_sensor_combined_sub.update(&sensor_combined);
+//                report.timestamp_sample_imu = sensor_combined.timestamp;
+//                for(int i=0;i<3;i++){
+//                        report.vehicle_angular_velocity_xyz[i] = sensor_combined.gyro_rad[i];
+//                        report.vehicle_acceleration_xyz[i] = sensor_combined.accelerometer_m_s2[i];
+//                }
+//        }
 
         // if (_jy901b_msg_sub.updated()){
         //         jy901b_msg_s jy901b_msg;

@@ -84,19 +84,21 @@ int
 YCHIOT::collect()
 {
         perf_begin(_sample_perf);
-        distance_mm = -1;
         _valid = false;
         // Read from the sensor UART buffer.
         const hrt_abstime timestamp_sample = hrt_absolute_time();
 
         uint8_t data;
         ::read(_file_descriptor, &data, 1);
-        if(data==START_FRAME_DIGIT2){
-            _linebuf[0]=START_FRAME_DIGIT1;
-            _linebuf[1]=START_FRAME_DIGIT2;
-            report.buffer[0]=START_FRAME_DIGIT1;
-            report.buffer[1]=START_FRAME_DIGIT2;
-            ::read(_file_descriptor, &_linebuf[2], 34);
+        if(data==START_FRAME_DIGIT1){
+            ::read(_file_descriptor, &data, 1);
+            if(data==START_FRAME_DIGIT2){
+		    _linebuf[0]=START_FRAME_DIGIT1;
+		    report.buffer[0]=START_FRAME_DIGIT1;
+		    _linebuf[1]=START_FRAME_DIGIT2;
+		    report.buffer[1]=START_FRAME_DIGIT2;
+		    ::read(_file_descriptor, &_linebuf[2], 34);
+	    }
         }else{
             return PX4_OK;
         }
@@ -126,7 +128,7 @@ YCHIOT::collect()
 
         while(::read(_file_descriptor, &data, 1)>0);
 
-        if (_valid || distance_mm>0) {
+        if (_valid) {
             // publish most recent valid measurement from buffer
             report.timestamp = timestamp_sample;
 
@@ -362,11 +364,14 @@ void
 YCHIOT::print_info()
 {
 	printf("Using port '%s'\n", _port);
+	if(_valid) PX4_INFO("Status: True"); else PX4_INFO("Status: False");
 	perf_print_counter(_sample_perf);
         perf_print_counter(_comms_errors);
-        for(int i=0;i<10;i++)
-            PX4_INFO("buffer:\t%s", _linebuf);
+        printf("buffer:\t%c", _linebuf[0]);
+        printf(" %c", _linebuf[1]);
+        for(int i=2;i<10;i++)
+            printf(" %x", _linebuf[i]);
 //            if (report.timestamp != 0)
 //                print_message(report);
-
+	printf("\n");
 }

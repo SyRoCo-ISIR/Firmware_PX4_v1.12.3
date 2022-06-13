@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- *   Copyright (c) 2017 PX4 Development Team. All rights reserved.
+ *   Copyright (c) 2012-2019 PX4 Development Team. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -32,64 +32,51 @@
  ****************************************************************************/
 
 /**
- * SENSIRION SFM Low Pressure DropDigital Flow Meter (i2c)
+ * @file px4_simple_app.c
+ * Minimal application example for PX4 autopilot
  *
- * @reboot_required true
- * @min 0
- * @max 1
- * @group Sensors
- * @value 0 Disabled
- * @value 1 SFM3000
+ * @author Example User <mail@example.com>
  */
-PARAM_DEFINE_INT32(SENS_EN_SFM3000, 1);
 
-/**
- * SFM Sensor 0 Rotation
- *
- * This parameter defines the queue number of SFM sensor with FORWARD-FACING, defualt: the First one
- *
- * @reboot_required true
- * @min 0
- * @max 3
- * @group Sensors
- *
- * @value 0 No rotation
- * @value 1 First sensor which connects to the multiplexer
- * @value 2 Second sensor which connects to the multiplexer
- * @value 3 Third sensor which connects to the multiplexer
- */
-PARAM_DEFINE_INT32(SFM_ROT_X, 1);
+#include <px4_platform_common/px4_config.h>
+#include <px4_platform_common/tasks.h>
+#include <px4_platform_common/posix.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
 
-/**
- * SFM Sensor 1 Rotation
- *
- * This parameter defines the queue number of SFM sensor with RIGHT_FACING, defualt: the Second one
- *
- * @reboot_required true
- * @min 0
- * @max 3
- * @group Sensors
- *
- * @value 0 No rotation
- * @value 1 First sensor which connects to the multiplexer
- * @value 2 Second sensor which connects to the multiplexer
- * @value 3 Third sensor which connects to the multiplexer
- */
-PARAM_DEFINE_INT32(SFM_ROT_Y, 2);
+#include <drivers/drv_hrt.h>
 
-/**
- * SFM Sensor 2 Rotation
- *
- * This parameter defines the queue number of SFM sensor with DOWNWARD-FACING, defualt: the Third one
- *
- * @reboot_required true
- * @min 0
- * @max 3
- * @group Sensors
- *
- * @value 0 No rotation
- * @value 1 First sensor which connects to the multiplexer
- * @value 2 Second sensor which connects to the multiplexer
- * @value 3 Third sensor which connects to the multiplexer
- */
-PARAM_DEFINE_INT32(SFM_ROT_Z, 3);
+#include <uORB/uORB.h>
+#include <uORB/topics/sensor_gps.h>
+
+__EXPORT int gps_test_main(int argc, char *argv[]);
+
+int gps_test_main(int argc, char *argv[])
+{
+    PX4_INFO("Hello Sky!");
+
+    /* subscribe to sensor_combined topic */
+    int _gps_sub = orb_subscribe(ORB_ID(sensor_gps)); 
+    /* limit the update rate to 1000 Hz */
+    orb_set_interval(_gps_sub, 1);
+
+    //hrt_abstime now = hrt_absolute_time();
+    int id=0;
+    while (id<100) {
+	bool updated;
+	orb_check(_gps_sub, &updated);
+	if(updated){
+		id++;
+		// obtained data for the first file descriptor
+		struct sensor_gps_s raw;
+		// copy sensors raw data into local buffer
+		orb_copy(ORB_ID(sensor_gps), _gps_sub, &raw);
+		PX4_INFO("gps measurement time delay:\t %8.4f",
+			(double)((int64_t)hrt_absolute_time() - (int64_t)raw.timestamp)/1000.0);
+	}
+
+    }
+    return 0;
+}

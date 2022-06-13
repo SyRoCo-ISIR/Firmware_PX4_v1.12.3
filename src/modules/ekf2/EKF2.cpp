@@ -164,6 +164,7 @@ EKF2::EKF2(bool multi_mode, const px4::wq_config_t &config, bool replay_mode):
 	_param_ekf2_synthetic_mag_z(_params->synthesize_mag_z),
 	_param_ekf2_gsf_tas_default(_params->EKFGSF_tas_default)
 {
+	_params->arsp_thr = _param_ekf2_arsp_thr.get(); // if compile for sitl pls comment this line
 }
 
 EKF2::~EKF2()
@@ -261,9 +262,6 @@ void EKF2::Run()
 		// update parameters from storage
 		updateParams();
 
-		float tmp = _param_ekf2_arsp_thr.get();
-		if(fabs(_params->arsp_thr - tmp)<FLT_EPSILON)
-			_params->arsp_thr = tmp;
 		_ekf.set_min_required_gps_health_time(_param_ekf2_req_gps_h.get() * 1_s);
 
 		// The airspeed scale factor correcton is only available via parameter as used by the airspeed module

@@ -170,8 +170,6 @@ int SFM3000::init()
                 _sensor_count++;
                 j++;
                 i++;
-
-                PX4_INFO("Sensor on address 0x%02x at tca9578a chanal #0%d: Connected", SFM_BASEADDR, i);
             }
         }else{
             // Check if a sensor is present.
@@ -251,6 +249,10 @@ void SFM3000::start()
 
 void SFM3000::print_status()
 {
+    for(size_t i=0;i<_sensor_count;i++){
+        PX4_INFO("Sensor on address 0x%02x at tca9578a chanal #0%d: Connected", SFM_BASEADDR, _sensor_chanal[i]);
+    }
+
     I2CSPIDriverBase::print_status();
     perf_print_counter(_sample_perf);
     perf_print_counter(_comms_errors);

@@ -279,17 +279,22 @@ void LoggedTopics::add_system_identification_topics()
 	// add_topic("vehicle_angular_acceleration_setpoint");
 	// add_topic("vehicle_torque_setpoint");
 
+    add_topic_multi("sensor_accel", 2, 2);
+    add_topic_multi("sensor_gyro", 2, 2);
+    add_topic("sensor_baro", 10);
 
 	// add_topic("manual_control_setpoint", 100);
 	// add_topic("position_setpoint_triplet", 100); // input from mavlink
 	// add_topic("trajectory_setpoint", 100); // pub in mc_pos, but generated in flight_task (e.g offboard) from pos_set_tri
-	// add_topic("vehicle_attitude_setpoint", 100); //
-	// add_topic("vehicle_local_position_setpoint", 100); // pub in mc_pos, and calculated from traj_set with PID
-	// add_topic("vehicle_attitude");
-	// add_topic("vehicle_local_position"); // pub in ekf
+    // add_topic("vehicle_attitude_setpoint", 10); //
+    // add_topic("vehicle_local_position_setpoint", 10); // pub in mc_pos, and calculated from traj_set with PID
+    add_topic("uwb_msg",100);
+    add_topic("distance_sensor", 2);
+    add_topic("vehicle_visual_odometry", 50);
+    add_topic("vehicle_attitude",5);
+    add_topic("vehicle_local_position",10); // pub in ekf
 	add_topic("data_record",5);
-	// add_topic("windspeed");
-	// add_topic("vehicle_visual_odometry", 20);
+    // add_topic("windspeed");
 }
 
 int LoggedTopics::add_topics_from_file(const char *fname)

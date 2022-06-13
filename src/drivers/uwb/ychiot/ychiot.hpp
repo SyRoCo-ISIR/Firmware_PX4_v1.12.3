@@ -76,7 +76,7 @@ const char *parser_state[] = {
 using namespace time_literals;
 
 /* Configuration Constants */
-static constexpr uint32_t _MEASURE_INTERVAL{10_ms};	// 10ms default sensor conversion time.
+static constexpr uint32_t _MEASURE_INTERVAL{100_ms};	// 10hz
 
 /* Frame start delimiter */
 static constexpr unsigned char START_FRAME_DIGIT1{'m'};

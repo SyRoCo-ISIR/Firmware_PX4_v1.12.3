@@ -67,8 +67,8 @@ static constexpr uint8_t addr_table[] = {
  */
 #define TFMINI_S_BASE_ADDR                 0x10
 
-/* The datasheet gives 1000Hz maximum measurement rate, but it's not true according to tech support from Benewake*/
-#define TFMINI_S_CONVERSION_INTERVAL	(1000) /* microseconds */
+/* The datasheet gives 500Hz maximum measurement rate, but it's not true according to tech support from Benewake*/
+#define TFMINI_S_CONVERSION_INTERVAL	(2000) /* microseconds */
 
 /*
  * Resolution & Limits according to datasheet

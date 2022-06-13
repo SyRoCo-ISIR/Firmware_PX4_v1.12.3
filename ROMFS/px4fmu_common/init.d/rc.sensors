@@ -102,6 +102,12 @@ then
 	tfmini_s start -X
 fi
 
+# ychiot UWB distance sensor
+if param greater -s SENS_EN_YCHIOT 0
+then
+	ychiot start
+fi
+
 # Thermal Anemometer sfm3000 sensor
 if param greater -s SENS_EN_SFM3000 0
 then

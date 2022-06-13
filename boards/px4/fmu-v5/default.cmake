@@ -17,9 +17,10 @@ px4_add_board(
 		TEL4:/dev/ttyS3
 	DRIVERS
 		adc/ads1115
-		adc/board_adc
+		adc/board_adc # CPU inside
 		anemometer/sfm3000 # SFM 3000
 		barometer # all available barometer drivers
+		#barometer/ms5611 # pixhawk 4 inside
 		batt_smbus
 		camera_capture
 		camera_trigger
@@ -30,32 +31,33 @@ px4_add_board(
 		heater
 		#imu # all available imu drivers
 		imu/analog_devices/adis16448
-		imu/bosch/bmi055
+		imu/bosch/bmi055 # pixhawk 4 inside
 		imu/invensense/icm20602
-		imu/invensense/icm20689
+		imu/invensense/icm20689 # pixhawk 4 inside
 		imu/invensense/icm20948 # required for ak09916 mag
 		imu/jy901b
 		irlock
 		lights # all available light drivers
-		lights/rgbled_pwm
+		lights/rgbled_pwm # pixhawk 4 inside
 		magnetometer # all available magnetometer drivers
+		#magnetometer/isentek/ist8310 # pixhawk 4 inside
 		optical_flow # all available optical flow drivers
 		osd
 		pca9685
 		pca9685_pwm_out
 		power_monitor/ina226
 		#protocol_splitter
-		pwm_input
-		pwm_out_sim
-		pwm_out
+		pwm_input # CPU inside default disact
+		pwm_out_sim # CPU inside mixer default disact
+		pwm_out # CPU inside default disact
 		px4io
-		rc_input
-		roboclaw
+		rc_input # rc radio
+		roboclaw # dc brush motor controller with encoder
 		smart_battery/batmon
-		rpm
-		safety_button
+		rpm # revolution per minute indicator
+		safety_button # check for the param CBRK_IO_SAFETY_KEY == 22027
 		telemetry # all available telemetry drivers
-		tone_alarm
+		tone_alarm # buzzer check for CBRK_BUZZER_KEY == 782097 ? act
 		uavcan
 		uwb
 	MODULES
@@ -130,6 +132,8 @@ px4_add_board(
 		data_record_test
 		fake_gps
 		vision_test
+		ychiot_test
+		gps_test
 		#fake_imu
 		#fake_magnetometer
 		#fixedwing_control # Tutorial code from https://px4.io/dev/example_fixedwing_control
