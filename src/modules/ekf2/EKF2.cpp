@@ -1481,6 +1481,7 @@ bool EKF2::UpdateFlowSample(ekf2_timestamps_s &ekf2_timestamps, optical_flow_s &
 			.gyro_xyz = Vector3f{-optical_flow.gyro_x_rate_integral, -optical_flow.gyro_y_rate_integral, -optical_flow.gyro_z_rate_integral},
 			.dt = 1e-6f * (float)optical_flow.integration_timespan,
 			.quality = optical_flow.quality,
+			.sensor_id = optical_flow.sensor_id
 		};
 
 		if (PX4_ISFINITE(optical_flow.pixel_flow_y_integral) &&

@@ -341,7 +341,7 @@ PMW3901::RunImpl()
 	report.frame_count_since_last_readout = _flow_sample_counter;	// number of frames
 	report.integration_timespan = _flow_dt_sum_usec; 	// microseconds
 
-	report.sensor_id = 0;
+        report.sensor_id = 101;
 	report.quality = _flow_sample_counter > 0 ? _flow_quality_sum / _flow_sample_counter : 0;
 
 

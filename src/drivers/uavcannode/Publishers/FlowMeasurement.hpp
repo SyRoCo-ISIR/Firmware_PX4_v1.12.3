@@ -77,6 +77,7 @@ public:
 			measurement.rate_gyro_integral[1] = optical_flow.gyro_y_rate_integral;
 			measurement.flow_integral[0] = optical_flow.pixel_flow_x_integral;
 			measurement.flow_integral[1] = optical_flow.pixel_flow_y_integral;
+			measurement.sensor_id = optical_flow.sensor_id;
 			measurement.quality = optical_flow.quality;
 
 			uavcan::Publisher<com::hex::equipment::flow::Measurement>::broadcast(measurement);

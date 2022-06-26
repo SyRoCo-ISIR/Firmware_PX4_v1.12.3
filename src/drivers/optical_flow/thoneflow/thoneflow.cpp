@@ -312,6 +312,7 @@ Thoneflow::collect()
 			float zeroval = 0.0f;
 			rotate_3f(_rotation, _report.pixel_flow_x_integral, _report.pixel_flow_y_integral, zeroval);
 
+                        _report.sensor_id = 103;
 			orb_publish(ORB_ID(optical_flow), _optical_flow_pub, &_report);
 		}
 
