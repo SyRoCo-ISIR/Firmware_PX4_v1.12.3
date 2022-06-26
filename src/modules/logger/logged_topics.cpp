@@ -291,9 +291,10 @@ void LoggedTopics::add_system_identification_topics()
     add_topic("uwb_msg",100);
     add_topic("distance_sensor", 2);
     add_topic("vehicle_visual_odometry", 50);
-    add_topic("vehicle_attitude",5);
-    add_topic("vehicle_local_position",10); // pub in ekf
-	add_topic("data_record",5);
+    add_topic("vehicle_odometry",10);
+    // add_topic("vehicle_attitude",5);
+    // add_topic("vehicle_local_position",10); // pub in ekf
+    add_topic("data_record",2);
     // add_topic("windspeed");
 }
 
