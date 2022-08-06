@@ -287,8 +287,9 @@ int tfmini_s::collect(uint8_t id)
 
 
 	/* swap data */
-	uint16_t distance_cm = (val[3] << 8) | val[2];
+        uint16_t distance_cm = (val[3] << 8) | val[2];
 	float distance_m = static_cast<float>(distance_cm) * 1e-2f;
+        static float last_dist_m = distance_m;
 	int strength = (val[5] << 8) | val[4];
 	//uint16_t temperature = ((val[7] << 8) | val[6]) / 8 - 256;
 
@@ -297,10 +298,9 @@ int tfmini_s::collect(uint8_t id)
 	uint8_t signal_quality = 100 * strength / 65535.0f;
 
 	// Step 2: Filter physically impossible measurements, which removes some crazy outliers that appear on LL40LS.
-	if (distance_m < TFMINI_S_MIN_DISTANCE_M)
-		 signal_quality = 0;
-	if((strength == -1) || (strength == -2))
-		 signal_quality = strength;
+        if (fabs(distance_m - last_dist_m) > 0.2 || (strength < 0))
+                 signal_quality = 0;
+        last_dist_m = distance_m;
 
 	if (crc8(val, 8) == val[8]) {
 		_px4_rangefinder.set_device_id(uint32_t(10+id));

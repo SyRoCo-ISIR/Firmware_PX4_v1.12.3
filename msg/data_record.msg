@@ -6,9 +6,9 @@ uint64 timestamp				# time since system start (microseconds)
 uint64 timestamp_sample_pwm			# timestamp of the data sample on which this message is based (microseconds)
 float32[4] output				# output data, in natural output units PWM
 
-#uint64 timestamp_sample_imu			# timestamp of the data sample on which this message is based (microseconds)
-#float32[3] vehicle_acceleration_xyz		# Bias corrected acceleration (including gravity) in body axis (in m/s^2)
-#float32[3] vehicle_angular_velocity_xyz		# Bias corrected angular velocity about X, Y, Z body axis (in rad/s)
+uint64 timestamp_sample_imu			# timestamp of the data sample on which this message is based (microseconds)
+float32[3] vehicle_acceleration_xyz		# Bias corrected acceleration (including gravity) in body axis (in m/s^2)
+float32[3] vehicle_angular_velocity_xyz	# Bias corrected angular velocity about X, Y, Z body axis (in rad/s)
 
 # uint64 timestamp_sample_jy901b		# time since system start (microseconds)
 # float32[3] jy901b_acc            # accel
@@ -30,14 +30,14 @@ uint64 timestamp_sample_att 			# timestamp of the data sample on which this mess
 
 uint64 timestamp_sample_ground_truth		# timestamp of the data sample on which this message is based (microseconds)
 float32[3] ground_truth_position_ned		# Position in NED earth-fixed frame, (metres)
-# float32[3] ground_truth_velocity_ned		# Velocity in NED earth-fixed frame, (metres/sec)
+float32[3] ground_truth_velocity_ned		# Velocity in NED earth-fixed frame, (metres/sec)
 float32[3] ground_truth_velocity_xyz		# Velocity in Body frame, (metres/sec)
-# float32[3] ground_truth_acceleration_ned	# Acceleration in NED earth-fixed frame, (metres/sec^2)
+float32[3] ground_truth_acceleration_ned	# Acceleration in NED earth-fixed frame, (metres/sec^2)
 float32[3] ground_truth_acceleration_xyz	# Acceleration in XYZ Body frame, (metres/sec^2)
 
-#float32 pressure	                       # static pressure measurement in millibar
-#float32 temperature	                       # static temperature measurement in deg C
-#uint64 timestamp_sample_baro 			# timestamp of the data sample on which this message is based (microseconds)
+float32 pressure	                       # static pressure measurement in millibar
+float32 temperature	                       # static temperature measurement in deg C
+uint64 timestamp_sample_baro 			# timestamp of the data sample on which this message is based (microseconds)
 
 float32 windspeed_x						# Airspeed measurement along x-axis in body frame, (metres/sec)
 float32 windspeed_y						# Airspeed measurement along y-axis in body frame, (metres/sec)

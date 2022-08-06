@@ -106,11 +106,11 @@ void DataRecord::Run()
                         report.vehicle_attitude_ned[i] = last_data.vehicle_attitude_ned[i];
 		}
 
-//                report.timestamp_sample_imu = last_data.timestamp_sample_imu;
-//                for(int i=0;i<3;i++){
-//                        report.vehicle_angular_velocity_xyz[i] = last_data.vehicle_angular_velocity_xyz[i];
-//                        report.vehicle_acceleration_xyz[i] = last_data.vehicle_acceleration_xyz[i];
-//                }
+                report.timestamp_sample_imu = last_data.timestamp_sample_imu;
+                for(int i=0;i<3;i++){
+                        report.vehicle_angular_velocity_xyz[i] = last_data.vehicle_angular_velocity_xyz[i];
+                        report.vehicle_acceleration_xyz[i] = last_data.vehicle_acceleration_xyz[i];
+                }
 
                 // report.timestamp_sample_jy901b = last_data.timestamp_sample_jy901b;
                 // for(int i=0;i<3;i++){
@@ -135,25 +135,25 @@ void DataRecord::Run()
 //                report.external_vision_position_ned[2] = last_data.external_vision_position_ned[2];
 
 		report.timestamp_sample_ground_truth = last_data.timestamp_sample_ground_truth;
-		// report.ground_truth_acceleration_ned[0] = last_data.ground_truth_acceleration_ned[0];
-		// report.ground_truth_acceleration_ned[1] = last_data.ground_truth_acceleration_ned[1];
-		// report.ground_truth_acceleration_ned[2] = last_data.ground_truth_acceleration_ned[2];
+                report.ground_truth_acceleration_ned[0] = last_data.ground_truth_acceleration_ned[0];
+                report.ground_truth_acceleration_ned[1] = last_data.ground_truth_acceleration_ned[1];
+                report.ground_truth_acceleration_ned[2] = last_data.ground_truth_acceleration_ned[2];
                 report.ground_truth_acceleration_xyz[0] = last_data.ground_truth_acceleration_xyz[0];
                 report.ground_truth_acceleration_xyz[1] = last_data.ground_truth_acceleration_xyz[1];
                 report.ground_truth_acceleration_xyz[2] = last_data.ground_truth_acceleration_xyz[2];
                 report.ground_truth_position_ned[0] = last_data.ground_truth_position_ned[0];
                 report.ground_truth_position_ned[1] = last_data.ground_truth_position_ned[1];
                 report.ground_truth_position_ned[2] = last_data.ground_truth_position_ned[2];
-		// report.ground_truth_velocity_ned[0] = last_data.ground_truth_velocity_ned[0];
-		// report.ground_truth_velocity_ned[1] = last_data.ground_truth_velocity_ned[1];
-		// report.ground_truth_velocity_ned[2] = last_data.ground_truth_velocity_ned[2];
+                report.ground_truth_velocity_ned[0] = last_data.ground_truth_velocity_ned[0];
+                report.ground_truth_velocity_ned[1] = last_data.ground_truth_velocity_ned[1];
+                report.ground_truth_velocity_ned[2] = last_data.ground_truth_velocity_ned[2];
                 report.ground_truth_velocity_xyz[0] = last_data.ground_truth_velocity_xyz[0];
                 report.ground_truth_velocity_xyz[1] = last_data.ground_truth_velocity_xyz[1];
                 report.ground_truth_velocity_xyz[2] = last_data.ground_truth_velocity_xyz[2];
 
-//                report.timestamp_sample_baro = last_data.timestamp_sample_baro;
-//                report.pressure = last_data.pressure;
-//                report.temperature = last_data.temperature;
+                report.timestamp_sample_baro = last_data.timestamp_sample_baro;
+                report.pressure = last_data.pressure;
+                report.temperature = last_data.temperature;
 
 		report.timestamp_sample_wind = last_data.timestamp_sample_wind;
 		report.windspeed_x = last_data.windspeed_x;
@@ -198,15 +198,15 @@ void DataRecord::Run()
 		vehicle_local_position_s vehicle_ground_truth;
 		_vehicle_local_sub.update(&vehicle_ground_truth);
                 report.timestamp_sample_ground_truth = vehicle_ground_truth.timestamp;
-                // report.ground_truth_acceleration_ned[0] = vehicle_ground_truth.ax;
-                // report.ground_truth_acceleration_ned[1] = vehicle_ground_truth.ay;
-                // report.ground_truth_acceleration_ned[2] = vehicle_ground_truth.az;
+                report.ground_truth_acceleration_ned[0] = vehicle_ground_truth.ax;
+                report.ground_truth_acceleration_ned[1] = vehicle_ground_truth.ay;
+                report.ground_truth_acceleration_ned[2] = vehicle_ground_truth.az;
                 report.ground_truth_position_ned[0] = vehicle_ground_truth.x;
                 report.ground_truth_position_ned[1] = vehicle_ground_truth.y;
                 report.ground_truth_position_ned[2] = vehicle_ground_truth.z;
-                // report.ground_truth_velocity_ned[0] = vehicle_ground_truth.vx;
-                // report.ground_truth_velocity_ned[1] = vehicle_ground_truth.vy;
-                // report.ground_truth_velocity_ned[2] = vehicle_ground_truth.vz;
+                report.ground_truth_velocity_ned[0] = vehicle_ground_truth.vx;
+                report.ground_truth_velocity_ned[1] = vehicle_ground_truth.vy;
+                report.ground_truth_velocity_ned[2] = vehicle_ground_truth.vz;
 
                 const matrix::Dcmf body_to_earth(q);
                 const matrix::Vector3f v_r = matrix::Vector3f(body_to_earth.transpose() * matrix::Vector3f(vehicle_ground_truth.vx, vehicle_ground_truth.vy, vehicle_ground_truth.vz));
@@ -219,13 +219,13 @@ void DataRecord::Run()
                 report.ground_truth_acceleration_xyz[2] = a_r(2);
         }
 
-//        if (_sensor_baro_sub.updated()){
-//                sensor_baro_s sensor_baro;
-//                _sensor_baro_sub.update(&sensor_baro);
-//                report.timestamp_sample_baro = sensor_baro.timestamp;
-//                report.pressure = sensor_baro.pressure;
-//                report.temperature = sensor_baro.temperature;
-//	}
+        if (_sensor_baro_sub.updated()){
+                sensor_baro_s sensor_baro;
+                _sensor_baro_sub.update(&sensor_baro);
+                report.timestamp_sample_baro = sensor_baro.timestamp;
+                report.pressure = sensor_baro.pressure;
+                report.temperature = sensor_baro.temperature;
+        }
 
 	if (_windspeed_sub.updated()){
 		windspeed_s windspeed;
@@ -277,15 +277,15 @@ void DataRecord::Run()
         //         }
         // }
 
-//        if (_vehicle_sensor_combined_sub.updated()){
-//                sensor_combined_s sensor_combined;
-//                _vehicle_sensor_combined_sub.update(&sensor_combined);
-//                report.timestamp_sample_imu = sensor_combined.timestamp;
-//                for(int i=0;i<3;i++){
-//                        report.vehicle_angular_velocity_xyz[i] = sensor_combined.gyro_rad[i];
-//                        report.vehicle_acceleration_xyz[i] = sensor_combined.accelerometer_m_s2[i];
-//                }
-//        }
+        if (_vehicle_sensor_combined_sub.updated()){
+                sensor_combined_s sensor_combined;
+                _vehicle_sensor_combined_sub.update(&sensor_combined);
+                report.timestamp_sample_imu = sensor_combined.timestamp;
+                for(int i=0;i<3;i++){
+                        report.vehicle_angular_velocity_xyz[i] = sensor_combined.gyro_rad[i];
+                        report.vehicle_acceleration_xyz[i] = sensor_combined.accelerometer_m_s2[i];
+                }
+        }
 
         // if (_jy901b_msg_sub.updated()){
         //         jy901b_msg_s jy901b_msg;
