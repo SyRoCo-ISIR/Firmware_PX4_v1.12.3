@@ -164,7 +164,7 @@ EKF2::EKF2(bool multi_mode, const px4::wq_config_t &config, bool replay_mode):
 	_param_ekf2_synthetic_mag_z(_params->synthesize_mag_z),
 	_param_ekf2_gsf_tas_default(_params->EKFGSF_tas_default)
 {
-	_params->arsp_thr = _param_ekf2_arsp_thr.get(); // if compile for sitl pls comment this line
+
 }
 
 EKF2::~EKF2()
@@ -1294,7 +1294,7 @@ void EKF2::UpdateAirspeedSample(ekf2_timestamps_s &ekf2_timestamps)
 
 		// only set airspeed data if condition for airspeed fusion are met
 		if ((_param_ekf2_arsp_thr.get() > FLT_EPSILON) && (true_airspeed_m_s > _param_ekf2_arsp_thr.get())) {
-
+			_params->arsp_thr = _param_ekf2_arsp_thr.get();
 			airspeedSample airspeed_sample {
 				.time_us = airspeed.timestamp,
 				.true_airspeed = true_airspeed_m_s,
