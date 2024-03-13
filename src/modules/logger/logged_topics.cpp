@@ -272,35 +272,35 @@ void LoggedTopics::add_raw_imu_accel_fifo()
 void LoggedTopics::add_system_identification_topics()
 {
 	// for system id need to log imu and controls at full rate
-     add_topic("battery_status", 10);
+	add_topic("battery_status", 10);
 	 add_topic("actuator_outputs",0,1);
 	// add_topic("actuator_controls_1");
-     add_topic("sensor_combined"); // used in EKF
-    // add_topic("vehicle_acceleration", 5); // with lp_filter only used for land_detect and cal_routine
+	add_topic("sensor_combined"); // used in EKF
+	// add_topic("vehicle_acceleration", 5); // with lp_filter only used for land_detect and cal_routine
 	// add_topic("vehicle_angular_acceleration");
 	// add_topic("vehicle_angular_acceleration_setpoint");
 	// add_topic("vehicle_torque_setpoint");
 
-    // add_topic_multi("vehicle_imu", 5, 2); // offset corrected and vibrMetr, used for sensor_combined
-    // add_topic_multi("sensor_accel"); // raw avg
-    // add_topic_multi("sensor_gyro"); // raw avg
-     add_topic("sensor_gyro_fifo"); // raw orig
-     add_topic("sensor_accel_fifo"); // raw orig
-     add_topic("sensor_baro"); // raw orig
-     add_topic("distance_sensor", 2);
+	// add_topic_multi("vehicle_imu", 5, 2); // offset corrected and vibrMetr, used for sensor_combined
+	// add_topic_multi("sensor_accel"); // raw avg
+	// add_topic_multi("sensor_gyro"); // raw avg
+	add_topic("sensor_gyro_fifo"); // raw orig
+	add_topic("sensor_accel_fifo"); // raw orig
+	add_topic("sensor_baro"); // raw orig
+	add_topic("distance_sensor", 2);
 
 	// add_topic("manual_control_setpoint", 100);
 	// add_topic("position_setpoint_triplet", 100); // input from mavlink
 	// add_topic("trajectory_setpoint", 100); // pub in mc_pos, but generated in flight_task (e.g offboard) from pos_set_tri
-    // add_topic("vehicle_attitude_setpoint", 10); //
-    // add_topic("vehicle_local_position_setpoint", 10); // pub in mc_pos, and calculated from traj_set with PID
-    // add_topic("uwb_msg",100);
-     add_topic("vehicle_visual_odometry", 50);
-    // add_topic("vehicle_odometry",10);
-     add_topic("vehicle_attitude");
-    // add_topic("vehicle_local_position",10); // pub in ekf
-     add_topic("data_record");
-     add_topic("windspeed");
+	// add_topic("vehicle_attitude_setpoint", 10); //
+	// add_topic("vehicle_local_position_setpoint", 10); // pub in mc_pos, and calculated from traj_set with PID
+	// add_topic("uwb_msg",100);
+	add_topic("vehicle_visual_odometry", 50);
+	// add_topic("vehicle_odometry",10);
+	add_topic("vehicle_attitude");
+	// add_topic("vehicle_local_position",10); // pub in ekf
+	add_topic("data_record");
+	add_topic("windspeed");
 }
 
 int LoggedTopics::add_topics_from_file(const char *fname)

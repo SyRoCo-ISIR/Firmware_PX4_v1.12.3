@@ -286,8 +286,6 @@ private:
 	DEFINE_PARAMETERS(
 		(ParamExtInt<px4::params::EKF2_MIN_OBS_DT>)
 		_param_ekf2_min_obs_dt,	///< Maximum time delay of any sensor used to increase buffer length to handle large timing jitter (mSec)
-		(ParamExtFloat<px4::params::EKF2_DELAY_FORCE>)
-		_param_ekf2_delay_forced,///< forced minimum observation delay relative to the IMU (mSec)
 		(ParamExtFloat<px4::params::EKF2_MAG_DELAY>)
 		_param_ekf2_mag_delay,	///< magnetometer measurement delay relative to the IMU (mSec)
 		(ParamExtFloat<px4::params::EKF2_BARO_DELAY>)

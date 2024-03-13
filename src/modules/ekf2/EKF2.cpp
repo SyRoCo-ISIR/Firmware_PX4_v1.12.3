@@ -58,7 +58,6 @@ EKF2::EKF2(bool multi_mode, const px4::wq_config_t &config, bool replay_mode):
 	_wind_pub(multi_mode ? ORB_ID(estimator_wind) : ORB_ID(wind)),
 	_params(_ekf.getParamHandle()),
 	_param_ekf2_min_obs_dt(_params->sensor_interval_min_ms),
-	_param_ekf2_delay_forced(_params->forced_delay_ms),
 	_param_ekf2_mag_delay(_params->mag_delay_ms),
 	_param_ekf2_baro_delay(_params->baro_delay_ms),
 	_param_ekf2_gps_delay(_params->gps_delay_ms),
@@ -164,7 +163,6 @@ EKF2::EKF2(bool multi_mode, const px4::wq_config_t &config, bool replay_mode):
 	_param_ekf2_synthetic_mag_z(_params->synthesize_mag_z),
 	_param_ekf2_gsf_tas_default(_params->EKFGSF_tas_default)
 {
-
 }
 
 EKF2::~EKF2()
@@ -1294,7 +1292,7 @@ void EKF2::UpdateAirspeedSample(ekf2_timestamps_s &ekf2_timestamps)
 
 		// only set airspeed data if condition for airspeed fusion are met
 		if ((_param_ekf2_arsp_thr.get() > FLT_EPSILON) && (true_airspeed_m_s > _param_ekf2_arsp_thr.get())) {
-			_params->arsp_thr = _param_ekf2_arsp_thr.get();
+
 			airspeedSample airspeed_sample {
 				.time_us = airspeed.timestamp,
 				.true_airspeed = true_airspeed_m_s,
